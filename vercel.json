@@ -6,6 +6,16 @@
             "use": "@vercel/node"
         }
     ],
+    "crons": [
+        {
+            "path": "/checkForScheduleCome",
+            "schedule": "*/1 * * * *"
+        },
+        {
+            "path": "/generateSchedule",
+            "schedule": "0 1 * * *"
+        }
+    ],
     "routes": [
         {
             "src": "/(.*)",
