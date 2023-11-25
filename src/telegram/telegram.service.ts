@@ -9,7 +9,12 @@ const notificationChatId: any = -4099468337n;
 
 const apiId = 2249653;
 const apiHash = '488d867946545c941940ea1909e19480';
-const stringSession = new StringSession(process.env.TELEGRAM_STRING); // fill this later with the value from session.save()
+
+const key = process.env.TELEGRAM_STRING;
+console.log('🚀 ~ file: telegram.service.ts:14 ~ process.env:', process.env);
+console.log('🚀 ~ file: telegram.service.ts:14 ~ key:', key);
+
+const stringSession = new StringSession(key); // fill this later with the value from session.save()
 
 @Injectable()
 export class TelegramService {

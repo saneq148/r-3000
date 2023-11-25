@@ -6,7 +6,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [ScheduleModule.forRoot(), TasksModule],
+  imports: [ScheduleModule.forRoot(), TasksModule, TelegramModule],
   controllers: [AppController],
   providers: [AppService],
 })
