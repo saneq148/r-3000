@@ -5,7 +5,7 @@ import { TelegramService } from '../telegram/telegram.service';
 const startHour = 9;
 const endHour = 18;
 
-export let todaySentCount = 0;
+export const todaySentCount = 0;
 export let range = generateSchedule();
 
 function generateSchedule() {
