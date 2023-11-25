@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { TelegramModule } from 'src/telegram/telegram.module';
+import { TelegramModule } from '../telegram/telegram.module';
 
 @Module({
   imports: [TelegramModule],
