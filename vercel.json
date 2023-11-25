@@ -1,8 +1,5 @@
 {
     "version": 2,
-    "env": {
-        "TELEGRAM_STRING": "TELEGRAM_STRING"
-    },
     "builds": [
         {
             "src": "src/main.ts",
