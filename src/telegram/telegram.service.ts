@@ -74,7 +74,7 @@ export class TelegramService {
 
     const res = await this.client.forwardMessages(targetChatId, {
       messages: [messages[0].id],
-      fromPeer: messages[0].peerId,
+      // fromPeer: messages[0].peerId,
     });
 
     await this.client.deleteMessages(sourceChatId, [messages[0].id], {});
