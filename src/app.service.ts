@@ -10,7 +10,7 @@ export class AppService {
     private readonly telegramService: TelegramService,
   ) {}
 
-  async getHello() {
+  async sendMessageFromPool() {
     return this.telegramService.sendMessageFromPool();
   }
   async getDialogs() {

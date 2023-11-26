@@ -1,6 +1,6 @@
 import { TelegramClient } from 'telegram';
 import { StringSession } from 'telegram/sessions';
-import input from 'input';
+// import input from 'input';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 

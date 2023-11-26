@@ -5,9 +5,9 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
+  @Get('/sendMessageFromPool')
   getHello() {
-    return this.appService.getHello();
+    return this.appService.sendMessageFromPool();
   }
   @Get('/getDialogs')
   getDialogs() {

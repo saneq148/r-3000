@@ -3,8 +3,8 @@ import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 import { format } from 'date-fns';
 
-const startHour = 16 - 1;
-const endHour = 16 + 9 - 1;
+const startHour = 17 - 1;
+const endHour = startHour + 2;
 const totalToday = 8;
 
 export let todaySentCount = 0;
@@ -72,10 +72,6 @@ export class TasksService {
 
       return;
     }
-    console.log(
-      '🚀 ~ file: tasks.service.ts:64 ~ TasksService ~ checkForScheduleCome ~ curDFromStack:',
-      curDFromStack,
-    );
     if (!curDFromStack) {
       console.log('SKIP 2');
 
