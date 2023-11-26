@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 
-const startHour = 9;
-const endHour = 18;
+const startHour = 0;
+const endHour = 9;
+const totalToday = 19;
+let sentToday = 0;
 
 export const todaySentCount = 0;
 export let range = generateSchedule();
 
 function generateSchedule() {
-  const totalToday = 9;
-
   const today = new Date();
   today.setHours(startHour);
   today.setMinutes(0);
@@ -37,32 +37,27 @@ export class TasksService {
   generateSchedule() {
     return generateSchedule();
   }
-  @Cron('*/1 * * * *')
+  @Cron('0 1 * * *')
+  resetCounter() {
+    sentToday = 0;
+    return sentToday;
+  }
+  @Cron('*/15 * * * *')
   async checkForScheduleCome() {
-    console.log(
-      '🚀 ~ file: schedule.service.ts:42 ~ ScheduleService ~ checkForScheduleCome ~ checkForScheduleCome:',
-    );
-
     const curDFromStack = range?.[todaySentCount];
 
     const now = new Date();
 
     const currH = now.getHours();
 
-    if (currH < 9 || currH > 18) return;
+    if (currH < startHour || currH > endHour) return;
 
     if (!curDFromStack) return;
     if (curDFromStack > new Date()) return;
-    console.log(
-      '🚀 ~ file: tasks.service.ts:56 ~ TasksService ~ checkForScheduleCome ~ curDFromStack:',
-      curDFromStack,
-    );
 
     const res = await this.telegramService.sendMessageFromPool();
-    console.log(
-      '🚀 ~ file: tasks.service.ts:62 ~ TasksService ~ checkForScheduleCome ~ res:',
-      res,
-    );
+
+    return res;
   }
 }
 

@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { TasksService } from './tasks/tasks.service';
+import { TelegramService } from './telegram/telegram.service';
 
 @Injectable()
 export class AppService {
   // constructor(private readonly telegramService: TelegramService) {}
-  constructor(private readonly scheduleService: TasksService) {}
+  constructor(
+    private readonly scheduleService: TasksService,
+    private readonly telegramService: TelegramService,
+  ) {}
 
   async getHello() {
-    return this.scheduleService.generateSchedule();
-
-    return 'Hello World!';
+    return this.telegramService.sendMessageFromPool();
   }
 }
