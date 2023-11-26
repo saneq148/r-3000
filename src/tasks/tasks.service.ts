@@ -52,19 +52,27 @@ export class TasksService {
     const now = new Date();
 
     const currH = now.getHours();
+    console.log(
+      '🚀 ~ file: tasks.service.ts:55 ~ TasksService ~ checkForScheduleCome ~ currH:',
+      currH,
+    );
 
     if (currH < startHour || currH > endHour) {
       console.log('SKIP');
 
       return;
     }
-
+    console.log(
+      '🚀 ~ file: tasks.service.ts:64 ~ TasksService ~ checkForScheduleCome ~ curDFromStack:',
+      curDFromStack,
+    );
     if (!curDFromStack) {
       console.log('SKIP');
 
       return;
     }
-    if (curDFromStack > new Date()) {
+
+    if (curDFromStack > now) {
       console.log('SKIP');
 
       return;
