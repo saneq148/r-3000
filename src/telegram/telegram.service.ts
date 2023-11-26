@@ -44,6 +44,10 @@ export class TelegramService {
 
   async sendMessageFromPool() {
     const messages = await this.client.getMessages(sourceChatId, { limit: 50 });
+    console.log(
+      '🚀 ~ file: telegram.service.ts:47 ~ TelegramService ~ sendMessageFromPool ~ messages:',
+      messages,
+    );
 
     if (messages.length <= 1) {
       return await this.client.sendMessage(notificationChatId, {

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 
-const startHour = 0;
-const endHour = 9;
+const startHour = 9;
+const endHour = 19;
 const totalToday = 19;
 let sentToday = 0;
 
