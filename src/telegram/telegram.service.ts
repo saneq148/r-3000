@@ -2,6 +2,7 @@ import { TelegramClient } from 'telegram';
 import { StringSession } from 'telegram/sessions';
 import input from 'input';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 const targetChatId: any = -4030325181n;
 const sourceChatId: any = -4037656313n;
@@ -10,21 +11,22 @@ const notificationChatId: any = -4099468337n;
 const apiId = 2249653;
 const apiHash = '488d867946545c941940ea1909e19480';
 
-const key = process.env.TELEGRAM_STRING;
-console.log('🚀 ~ file: telegram.service.ts:14 ~ process.env:', process.env);
-console.log('🚀 ~ file: telegram.service.ts:14 ~ key:', key);
-
-const stringSession = new StringSession(key); // fill this later with the value from session.save()
-
 @Injectable()
 export class TelegramService {
-  private readonly client = new TelegramClient(stringSession, apiId, apiHash, {
-    connectionRetries: 5,
-  });
+  private readonly client;
+  constructor(
+    private configService: ConfigService<{
+      TELEGRAM_STRING: string;
+    }>,
+  ) {
+    const key = this.configService.get('TELEGRAM_STRING', {
+      infer: true,
+    });
 
-  constructor() {
-    console.log('Loading interactive example...');
-
+    const stringSession = new StringSession(key); // fill this later with the value from session.save()
+    this.client = new TelegramClient(stringSession, apiId, apiHash, {
+      connectionRetries: 5,
+    });
     this.client.connect();
 
     // (async () => {
