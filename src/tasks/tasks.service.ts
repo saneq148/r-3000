@@ -3,12 +3,11 @@ import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 import { format } from 'date-fns';
 
-const startHour = 10;
-const endHour = 19;
+const startHour = 15;
+const endHour = 15 + 9;
 const totalToday = 8;
-let sentToday = 0;
 
-export const todaySentCount = 0;
+export let todaySentCount = 0;
 export let range = generateSchedule();
 
 function generateSchedule() {
@@ -43,10 +42,10 @@ export class TasksService {
   }
   @Cron('0 1 * * *')
   resetCounter() {
-    sentToday = 0;
-    return sentToday;
+    todaySentCount = 0;
+    return todaySentCount;
   }
-  @Cron('*/15 * * * *')
+  @Cron('*/1 * * * *')
   async checkForScheduleCome() {
     const curDFromStack = range?.[todaySentCount];
 
@@ -61,6 +60,8 @@ export class TasksService {
 
     const res = await this.telegramService.sendMessageFromPool();
 
+    todaySentCount += 1;
+
     return res;
   }
 
@@ -68,7 +69,7 @@ export class TasksService {
     return {
       range: range.map((d) => format(new Date(d), 'dd/MM/yyyy HH:mm')),
       totalToday,
-      sentToday,
+      todaySentCount,
       startHour,
       endHour,
     };
