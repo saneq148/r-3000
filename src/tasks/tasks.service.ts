@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
+import { format } from 'date-fns';
 
-const startHour = 9;
+const startHour = 10;
 const endHour = 19;
-const totalToday = 19;
+const totalToday = 8;
 let sentToday = 0;
 
 export const todaySentCount = 0;
@@ -23,10 +24,13 @@ function generateSchedule() {
 
   range = Array.from({ length: totalToday })
     .map(() => getRandomInt(todayStartDate.getTime(), todayEndDate.getTime()))
-    .sort()
-    .map((v) => new Date(v));
+    .sort();
+  console.log(
+    '🚀 ~ file: tasks.service.ts:28 ~ generateSchedule ~ range:',
+    range,
+  );
 
-  return range;
+  return range.map((v) => new Date(v));
 }
 
 @Injectable()
@@ -62,7 +66,7 @@ export class TasksService {
 
   getSettings() {
     return {
-      range,
+      range: range.map((d) => format(new Date(d), 'dd/MM/yyyy HH:mm')),
       totalToday,
       sentToday,
       startHour,
