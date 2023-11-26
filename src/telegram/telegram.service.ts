@@ -54,7 +54,16 @@ export class TelegramService {
     const messages = await this.client.getMessages(sourceChatId, { limit: 50 });
     console.log(
       '🚀 ~ file: telegram.service.ts:47 ~ TelegramService ~ sendMessageFromPool ~ messages:',
-      messages,
+      messages.map((m) => ({ id: m.id, m: m.message })),
+    );
+
+    console.log(
+      '🚀 ~ file: telegram.service.ts:62 ~ TelegramService ~ sendMessageFromPool ~ messages?.[0].id:',
+      messages?.[0].id,
+    );
+    console.log(
+      '🚀 ~ file: telegram.service.ts:62 ~ TelegramService ~ sendMessageFromPool ~ messages?.[0].message:',
+      messages?.[0].message,
     );
 
     if (messages.length <= 1) {
