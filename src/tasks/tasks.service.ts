@@ -53,10 +53,22 @@ export class TasksService {
 
     const currH = now.getHours();
 
-    if (currH < startHour || currH > endHour) return;
+    if (currH < startHour || currH > endHour) {
+      console.log('SKIP');
 
-    if (!curDFromStack) return;
-    if (curDFromStack > new Date()) return;
+      return;
+    }
+
+    if (!curDFromStack) {
+      console.log('SKIP');
+
+      return;
+    }
+    if (curDFromStack > new Date()) {
+      console.log('SKIP');
+
+      return;
+    }
 
     const res = await this.telegramService.sendMessageFromPool();
 
