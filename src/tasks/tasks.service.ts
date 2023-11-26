@@ -3,8 +3,8 @@ import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 import { format } from 'date-fns';
 
-const startHour = 15;
-const endHour = 15 + 9;
+const startHour = 16;
+const endHour = 16 + 9;
 const totalToday = 8;
 
 export let todaySentCount = 0;
@@ -24,7 +24,7 @@ function generateSchedule() {
   range = Array.from({ length: totalToday })
     .map(() => getRandomInt(todayStartDate.getTime(), todayEndDate.getTime()))
     .sort()
-    .map((v) => new Date(v));
+    .map((v) => new Date(format(v, 'yyyy-MM-dd HH:mm')));
 
   return range;
 }
@@ -46,12 +46,25 @@ export class TasksService {
   async checkForScheduleCome() {
     const curDFromStack = range?.[todaySentCount];
 
-    const now = new Date();
+    const now = new Date(format(new Date(), 'yyyy-MM-dd HH:mm'));
+    console.log(
+      '🚀 ~ file: tasks.service.ts:50 ~ TasksService ~ checkForScheduleCome ~ now:',
+      now,
+    );
+    console.log(
+      '🚀 ~ file: tasks.service.ts:48 ~ TasksService ~ checkForScheduleCome ~ curDFromStack:',
+      curDFromStack,
+    );
 
     const currH = now.getHours();
+    const stackH = curDFromStack.getHours();
     console.log(
       '🚀 ~ file: tasks.service.ts:55 ~ TasksService ~ checkForScheduleCome ~ currH:',
       currH,
+    );
+    console.log(
+      '🚀 ~ file: tasks.service.ts:53 ~ TasksService ~ checkForScheduleCome ~ stackH:',
+      stackH,
     );
 
     if (currH < startHour || currH > endHour) {
@@ -69,14 +82,6 @@ export class TasksService {
       return;
     }
 
-    console.log(
-      '🚀 ~ file: tasks.service.ts:76 ~ TasksService ~ checkForScheduleCome ~ curDFromStack.getTime():',
-      curDFromStack.getTime(),
-    );
-    console.log(
-      '🚀 ~ file: tasks.service.ts:77 ~ TasksService ~ checkForScheduleCome ~ now.getTime():',
-      now.getTime(),
-    );
     if (curDFromStack.getTime() > now.getTime()) {
       console.log('SKIP 3');
 
