@@ -23,13 +23,10 @@ function generateSchedule() {
 
   range = Array.from({ length: totalToday })
     .map(() => getRandomInt(todayStartDate.getTime(), todayEndDate.getTime()))
-    .sort();
-  console.log(
-    '🚀 ~ file: tasks.service.ts:28 ~ generateSchedule ~ range:',
-    range,
-  );
+    .sort()
+    .map((v) => new Date(v));
 
-  return range.map((v) => new Date(v));
+  return range;
 }
 
 @Injectable()
