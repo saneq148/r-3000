@@ -3,15 +3,15 @@ import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 import { format } from 'date-fns';
 
-const startHour = 16;
-const endHour = 16 + 9;
+const startHour = 16 - 1;
+const endHour = 16 + 9 - 1;
 const totalToday = 8;
 
 export let todaySentCount = 0;
 export let range = generateSchedule();
 
 function generateSchedule() {
-  const today = new Date();
+  const today = new Date(format(new Date(), 'yyyy-MM-dd H:mm'));
   today.setHours(startHour);
   today.setMinutes(0);
 
