@@ -59,6 +59,16 @@ export class TasksService {
 
     return res;
   }
+
+  getSettings() {
+    return {
+      range,
+      totalToday,
+      sentToday,
+      startHour,
+      endHour,
+    };
+  }
 }
 
 /**

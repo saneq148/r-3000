@@ -14,4 +14,8 @@ export class TasksController {
   generateSchedule() {
     return this.tasksService.generateSchedule();
   }
+  @Get('/getSettings')
+  getSettings() {
+    return this.tasksService.getSettings();
+  }
 }

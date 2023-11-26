@@ -17,11 +17,19 @@ export class TelegramService {
   constructor(
     private configService: ConfigService<{
       TELEGRAM_STRING: string;
+      TEST_USER_ACTIVATION_CODE: string;
     }>,
   ) {
     const key = this.configService.get('TELEGRAM_STRING', {
       infer: true,
     });
+    const test1 = this.configService.get('TEST_USER_ACTIVATION_CODE', {
+      infer: true,
+    });
+    console.log(
+      '🚀 ~ file: telegram.service.ts:29 ~ TelegramService ~ test1:',
+      test1,
+    );
 
     const stringSession = new StringSession(key); // fill this later with the value from session.save()
     this.client = new TelegramClient(stringSession, apiId, apiHash, {
