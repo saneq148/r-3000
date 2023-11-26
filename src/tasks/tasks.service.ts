@@ -58,7 +58,7 @@ export class TasksService {
     );
 
     if (currH < startHour || currH > endHour) {
-      console.log('SKIP');
+      console.log('SKIP 1');
 
       return;
     }
@@ -67,13 +67,21 @@ export class TasksService {
       curDFromStack,
     );
     if (!curDFromStack) {
-      console.log('SKIP');
+      console.log('SKIP 2');
 
       return;
     }
 
-    if (curDFromStack > now) {
-      console.log('SKIP');
+    console.log(
+      '🚀 ~ file: tasks.service.ts:76 ~ TasksService ~ checkForScheduleCome ~ curDFromStack.getTime():',
+      curDFromStack.getTime(),
+    );
+    console.log(
+      '🚀 ~ file: tasks.service.ts:77 ~ TasksService ~ checkForScheduleCome ~ now.getTime():',
+      now.getTime(),
+    );
+    if (curDFromStack.getTime() > now.getTime()) {
+      console.log('SKIP 3');
 
       return;
     }
