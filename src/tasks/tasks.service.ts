@@ -3,7 +3,7 @@ import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 import { format } from 'date-fns';
 
-const startHour = 17 - 1;
+const startHour = 17 - 2;
 const endHour = startHour + 2;
 const totalToday = 8;
 
