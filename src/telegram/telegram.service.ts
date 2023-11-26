@@ -4,7 +4,7 @@ import input from 'input';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-const targetChatId: any = -4030325181n;
+const targetChatId: any = -4016869973n;
 const sourceChatId: any = -4037656313n;
 const notificationChatId: any = -4099468337n;
 
@@ -13,7 +13,7 @@ const apiHash = '488d867946545c941940ea1909e19480';
 
 @Injectable()
 export class TelegramService {
-  private readonly client;
+  private readonly client: TelegramClient;
   constructor(
     private configService: ConfigService<{
       TELEGRAM_STRING: string;
@@ -71,10 +71,14 @@ export class TelegramService {
         message: 'no data',
       });
     }
+    console.log(
+      '🚀 ~ file: telegram.service.ts:78 ~ TelegramService ~ sendMessageFromPool ~ messages[0].peerId:',
+      messages[0].peerId,
+    );
 
     const res = await this.client.forwardMessages(targetChatId, {
       messages: [messages[0].id],
-      // fromPeer: messages[0].peerId,
+      fromPeer: messages[0].peerId,
     });
 
     await this.client.deleteMessages(sourceChatId, [messages[0].id], {});
@@ -83,6 +87,9 @@ export class TelegramService {
   }
 
   async getDialogs() {
-    return await this.client.getDialogs({ limit: 30 });
+    return (await this.client.getDialogs({ limit: 30 })).map((d) => ({
+      id: d.id,
+      name: d.name,
+    }));
   }
 }

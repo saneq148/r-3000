@@ -9,4 +9,8 @@ export class AppController {
   getHello() {
     return this.appService.getHello();
   }
+  @Get('/getDialogs')
+  getDialogs() {
+    return this.appService.getDialogs();
+  }
 }

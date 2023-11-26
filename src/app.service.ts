@@ -13,4 +13,7 @@ export class AppService {
   async getHello() {
     return this.telegramService.sendMessageFromPool();
   }
+  async getDialogs() {
+    return this.telegramService.getDialogs();
+  }
 }
