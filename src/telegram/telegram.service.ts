@@ -44,17 +44,17 @@ export class TelegramService {
     });
     this.client.connect();
 
-    // (async () => {
-    //   await this.client.start({
-    //     phoneNumber: async () => await input.text('Please enter your number: '),
-    //     password: async () => await input.text('Please enter your password: '),
-    //     phoneCode: async () =>
-    //       await input.text('Please enter the code you received: '),
-    //     onError: (err) => console.log(err),
-    //   });
-    //   console.log('You should now be connected.');
-    //   console.log(this.client.session.save()); // Save this string to avoid logging in again
-    // })();
+    (async () => {
+      await this.client.start({
+        phoneNumber: async () => await input.text('Please enter your number: '),
+        password: async () => await input.text('Please enter your password: '),
+        phoneCode: async () =>
+          await input.text('Please enter the code you received: '),
+        onError: (err) => console.log(err),
+      });
+      console.log('You should now be connected.');
+      console.log(this.client.session.save()); // Save this string to avoid logging in again
+    })();
   }
 
   async getTopMessages() {
