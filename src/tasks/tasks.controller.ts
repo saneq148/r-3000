@@ -18,4 +18,8 @@ export class TasksController {
   getSettings() {
     return this.tasksService.getSettings();
   }
+  @Get('/sendTopMessagesToSourceGroup')
+  sendTopMessagesToSourceGroup() {
+    return this.tasksService.sendTopMessagesToSourceGroup();
+  }
 }

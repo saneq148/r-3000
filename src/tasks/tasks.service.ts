@@ -3,9 +3,9 @@ import { Cron } from '@nestjs/schedule';
 import { TelegramService } from '../telegram/telegram.service';
 import { format } from 'date-fns';
 
-const startHour = 18 - 1;
-const endHour = startHour + 2;
-const totalToday = 8;
+const startHour = 10 - 1;
+const endHour = startHour + 8;
+const totalToday = 12;
 
 export let todaySentCount = 0;
 export let range = generateSchedule();
@@ -89,6 +89,10 @@ export class TasksService {
     todaySentCount += 1;
 
     return res;
+  }
+
+  sendTopMessagesToSourceGroup() {
+    return this.telegramService.sendTopMessagesToSourceGroup();
   }
 
   getSettings() {
