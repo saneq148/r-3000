@@ -116,10 +116,13 @@ export class TelegramService {
 
     if (!messages.length) return [];
 
-    await this.client.forwardMessages(sourceChatId, {
-      messages: messages?.map(({ id }) => id),
-      fromPeer: messages?.find(({ peerId }) => !!peerId).peerId,
-    });
+    for (const message of messages) {
+      await this.client.forwardMessages(sourceChatId, {
+        messages: message.id,
+        fromPeer: message.peerId,
+      });
+      await new Promise((resolve) => setTimeout(() => resolve(undefined), 100));
+    }
 
     return messages?.map(({ message, rate }) => ({ message, rate }));
   }
