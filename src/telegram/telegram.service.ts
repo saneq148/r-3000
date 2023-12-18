@@ -5,7 +5,6 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { fromUnixTime, isAfter, subDays } from 'date-fns';
 
-const targetChatId: any = -4016869973n;
 const sourceChatId: any = -4096720079;
 const notificationChatId: any = -4099468337n;
 
@@ -28,15 +27,28 @@ enum Reactions {
 @Injectable()
 export class TelegramService {
   private readonly client: TelegramClient;
+  private targetChatId = -4016869973;
   constructor(
     private configService: ConfigService<{
       TELEGRAM_STRING: string;
       TEST_USER_ACTIVATION_CODE: string;
+      TARGET_CHAT_ID: string;
     }>,
   ) {
     const key = this.configService.get('TELEGRAM_STRING', {
       infer: true,
     });
+    const customTargetChatIdStr = this.configService.get('TARGET_CHAT_ID', {
+      infer: true,
+    });
+
+    const customTargetChatId = customTargetChatIdStr
+      ? +customTargetChatIdStr
+      : undefined;
+
+    if (customTargetChatId) {
+      this.targetChatId = customTargetChatId;
+    }
 
     const stringSession = new StringSession(key); // fill this later with the value from session.save()
     this.client = new TelegramClient(stringSession, apiId, apiHash, {
@@ -185,7 +197,7 @@ export class TelegramService {
       });
     }
 
-    const res = await this.client.forwardMessages(targetChatId, {
+    const res = await this.client.forwardMessages(this.targetChatId, {
       messages: [messages[0].id],
       fromPeer: messages?.find(({ peerId }) => !!peerId).peerId,
     });
